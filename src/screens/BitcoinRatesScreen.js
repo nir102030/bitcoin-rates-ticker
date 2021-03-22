@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
-  Pressable,
+  TouchableOpacity,
 } from 'react-native';
 import {initWebSocket, closeWs} from '../api/websocket';
 
@@ -45,20 +45,15 @@ const BitcoinRatesScreen = () => {
       }}>
       <Text style={styles.header}>Live Bitcoin rates</Text>
       <View style={styles.rates}>{renderRates()}</View>
-      <Pressable
+      <TouchableOpacity
         onPress={
           ws
             ? () => closeWs(ws, setWs)
             : () => initWebSocket(setCurrentRate, setWs)
         }
-        style={({pressed}) => [
-          {
-            backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
-          },
-          styles.button,
-        ]}>
+        style={styles.button}>
         <Text style={styles.buttonText}>Start/Stop</Text>
-      </Pressable>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -68,6 +63,7 @@ export default BitcoinRatesScreen;
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
+    padding: 20,
   },
 
   header: {
